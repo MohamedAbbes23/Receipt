@@ -13,9 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1ax*gjktxxsi7i@4iv0%2@5wenp%ecsm33!85!1m@2l-b^@y@6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web-production-5c84e.up.railway.app']
 
 
 # Application definition
@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -114,7 +115,11 @@ STATICFILES_DIRS = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
 
+CSRF_COOKIE_SECURE = True  # If using HTTPS
+CSRF_COOKIE_HTTPONLY = True
+CSRF_USE_SESSIONS = False  # Set to True if you want to use sessions for CSRF
 
 
 LOGIN_REDIRECT_URL = '/list'
